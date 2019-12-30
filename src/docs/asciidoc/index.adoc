@@ -1,0 +1,19 @@
+= Asciidocビルド環境構築
+Tsuyoshi Oiwa <tsuyoshi.oiwa.code@gmail.com>
+v1.0, 2019/12/28
+
+//article, book, manapge
+:doctype: article
+:stylesheet: sample.css
+
+//画像参照時のパスディレクトリ
+:imagesdir: images
+:toc:
+:toclevels: 2
+:toc-tile: 目次
+
+include::Ch01/chapter.adoc[]
+
+include::Ch02/chapter.adoc[]
+
+

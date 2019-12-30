@@ -1,0 +1,53 @@
+:imagesdir: Ch01
+
+== 概要
+=== はじめに
+このドキュメントはAsciidocドキュメントをGitHub, Azureを利用して自動ビルドする環境構築方法についてまとめたものです。
+この資料を作成する過程で以下のGitHubレポジトリについて参考にさせていただきました。ありがとうございます。
+
+- Pro Git 第2版 日本語翻訳
+ https://github.com/progit/progit2-ja[progit/progit2-ja]
+
+
+- Promise Book
+ https://github.com/azu/promises-book/[azu/promises-book]
+
+=== 本書の構成
+Asciidoc
+
+=== 画像テスト
+image:images/images.png[]
+
+=== diagramテスト
+[plantuml, diagram-classes, png]
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
+
+[ditaa]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+

@@ -1,0 +1,42 @@
+//plugin user guide
+//https://asciidoctor.github.io/asciidoctor-gradle-plugin/development-2.0/user-guide/
+plugins {
+    // id 'org.asciidoctor.convert' version '2.4.0'
+    id 'org.asciidoctor.jvm.convert' version '2.4.0'
+    id 'org.asciidoctor.jvm.gems' version '2.4.0'
+    id 'org.asciidoctor.jvm.pdf' version '2.4.0'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        url 'http://rubygems-proxy.torquebox.org/releases'
+    }
+}
+
+asciidoctorj {
+    version = '1.6.0'
+    modules {
+        diagram.version '2.0.0'
+    }
+    // requires 'asciidoctor-diagram'
+}
+asciidoctor {
+    attributes 'stylesheet': 'sample.css'
+
+    baseDirFollowsSourceDir()
+    sourceDir = file('src/docs/asciidoc')
+    sources {
+        include 'index.adoc'
+    }
+    resources {
+        from(sourceDir) {
+            include '**/images/**'
+        }
+    }
+}
+
+dependencies {
+    // asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.18'
+}

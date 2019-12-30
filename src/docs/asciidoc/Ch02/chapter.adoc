@@ -1,0 +1,67 @@
+== 技術、インフラの選定
+
+=== Asciidoc実装
+==== Asciidoc実装一覧
+[options="header", width="80%"]
+.Asciidoc実装一覧
+|====
+|実装|言語|ビルドスクリプト
+|Asciidoc(CRuby)|Ruby|rake
+|AsciidotorJ|Java|maven, gradle
+|Asciidoctor.js|Javascript|npm-scripts?
+|Asciidoc(JRuby)|Ruby|rake
+|Asciidoc(TruffleRuby)|Ruby|rake
+|====
+Asciidocは様々な環境で使用できますが、その実装の種類は大きく分けて2つに分類されます。
+
+===== Ruby実装の置き換え
+1つ目の実装種類はRuby実装を別言語ベースものに切り替えるものです。
+この方法ではAsciidoc自体は本家CRubyのものをそのまま利用します。
+エクステンションを適用する場合は
+```Gem
+gem install asciidoc-diagram
+```
+とRubyの流儀にしたがって適用します。
+表ではAsciidoc(CRuby), Asciidoc(JRuby), Asciidoc(TruffleRuby)が対象になります。
+
+===== Asciidoc(CRuby)の別実装
+2つ目の実装種類はRuby以外の言語ベースにAsciidocのリファレンス実装をしたものです。
+表ではAsciidoctorJ, Asciidocter.jsが対象になります。
+言語ベースがRubyではないため、ビルドツールも各言語に合わせて変える必要があります。
+エクステンションを適用する場合は例えばJava, Gradleの場合は
+```Gradle
+compile group: 'org.asciidoctor', name: 'asciidoctorj-diagram', version: '2.0.0'
+```
+と記述します。
+javascriptのビルドツールについては私は詳しくないのでここではあまり詳しく記述しません（できません）。
+
+==== Asciidoc実装選定時の考慮点
+正直なところ細かい実装の違いについて語る知識、経験が私にはないので特に語れることはありません。
+ただ、Asciidoc, AsciidoctorJ, Asciidoctor.jsでは利用できるエクステンションに差異があるため、必要な機能があるかよく確認したほうがいいと思います。
+例えばAsciidocでPDF出力をしようと考える場合はAsciidoctorJ一択になったりします。
+
+//TODO ==== 各実装ごとのエクステンション一覧
+
+==== 本ドキュメントの実装
+AsciidoctorJを利用します。単純に私が使い慣れているからという理由です。
+
+=== ビルドスクリプト
+
+=== Gitレポジトリ
+- GitHub
+- GitLab
+- Azure repo
+- AWS c
+
+=== コンテナ
+==== docker image
+==== 環境構築
+apt updateapt
+graphbiz
+
+=== CIツール
+
+
+
+
+
