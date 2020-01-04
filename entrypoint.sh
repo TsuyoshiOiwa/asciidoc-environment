@@ -5,10 +5,10 @@ GITHUB_TOKEN=$3
 COMMIT_MESSAGE=$4
 
 WORKDIR=/${GITHUB_REPOSITORY}
-
-#git clone -b master https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $WORKDIR
+git clone -b master https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $WORKDIR
 #git remote set-url origin https://${GITHUB_NAME}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
-git checkout -b master
+#git checkout -b master
+
 git config --local user.name "${GITHUB_NAME}"
 git config --local user.email "${GITHUB_EMAIL}"
 
