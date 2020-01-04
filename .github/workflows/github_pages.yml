@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v1
     - name: Build And Commit docs 
       id: build
-      uses: TsuyoshiOiwa/asciidoc-environment
+      uses: TsuyoshiOiwa/asciidoc-environment@v0.1
       with:
         github-name: 'Gitub Pages Action'
         github-email: 'tsuyoshi.oiwa.code@gmail.com'
