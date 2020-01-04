@@ -31,8 +31,10 @@ asciidoctorj {
     }
     // requires 'asciidoctor-diagram'
 }
-asciidoctor {
 
+def htmlBuildPath = ''
+asciidoctor {
+    htmlBuildPath = outputDir
     baseDirFollowsSourceDir()
     sourceDir = file('src/docs/asciidoc')
     sources {
@@ -48,7 +50,16 @@ asciidoctor {
             include 'highlight/LICENSE'
         }
     }
-    outputDir = file('docs')
+}
+
+task deployGithubPages(type: Copy, dependsOn: asciidoctor) {
+    delete {
+        delete 'docs'
+    }
+    copy {
+        from htmlBuildPath
+        into 'docs'
+    }
 }
 
 dependencies {
