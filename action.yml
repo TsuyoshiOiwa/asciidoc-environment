@@ -1,0 +1,29 @@
+name: 'Build Html And Deploy Github Pages'
+description: 'build asciidoc document as Html and deploy Github Pages'
+
+inputs:
+  github-name:
+    description: 'commit user'
+    required: true
+  github-email:
+    description: 'committer email address'
+    required: true
+  github-token:
+    description: 'github access token'
+    required: true
+  commit-message:
+    description: 'commit message'
+    required: false
+
+outputs:
+  result:
+    description: 'result code, return 0 if suceeded'
+
+runs:
+  using: 'docker'
+  image: '.github/Dockerfile'
+  args:
+    - ${{ inputs.github-name }}
+    - ${{ inputs.github-email }}
+    - ${{ inputs.github-token }}
+    - ${{ inputs.commit-message }}
