@@ -1,4 +1,6 @@
+ifdef::include[]
 :imagesdir: Ch01
+endif::include[]
 
 == 概要
 === はじめに

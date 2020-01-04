@@ -17,13 +17,21 @@ repositories {
 
 asciidoctorj {
     version = '1.6.0'
+    attributes(
+        'source-highlighter': 'highlightjs',
+        'toc': 'left',
+        'toc-title': '目次',
+        'toclevels': 3,
+        'idprefix': '',
+        'idseparator': '-',
+    )
+
     modules {
         diagram.version '2.0.0'
     }
     // requires 'asciidoctor-diagram'
 }
 asciidoctor {
-    attributes 'stylesheet': 'sample.css'
 
     baseDirFollowsSourceDir()
     sourceDir = file('src/docs/asciidoc')
@@ -34,9 +42,16 @@ asciidoctor {
         from(sourceDir) {
             include '**/images/**'
         }
+        from(rootDir) {
+            include 'highlight/highlight.min.js'
+            include 'highlight/styles/github.min.css'
+            include 'highlight/LICENSE'
+        }
     }
+    outputDir = file('docs')
 }
 
 dependencies {
+    // asciidoctorGems 'rubygems:coderay:1.1.2'
     // asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.18'
 }

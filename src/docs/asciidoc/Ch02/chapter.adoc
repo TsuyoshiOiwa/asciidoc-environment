@@ -1,3 +1,9 @@
+:source-highlighter: highlightjs
+ifdef::include[]
+:imagesdir: Ch02
+else::include[]
+endif::include[]
+
 == 技術、インフラの選定
 
 === Asciidoc実装
@@ -60,6 +66,41 @@ apt updateapt
 graphbiz
 
 === CIツール
+==== GitHub Actions & GitHub Pages
+最初の候補としてまず上がると思われる方法です。GitHub Actions でドキュメントをビルドしてGitHub Pagesで公開します。
+一番お手軽に実装できますがページは公開されるので、アクセス制限などは出来ません。
+
+Actionsのテンプレートを見るとGradle Workflow という今回のプロジェクトにうってつけのものがありますが、試してみるとひとつ問題がありました。
+asciidoc-diagram を利用したドキュメントをビルドしようとしたとき以下のような例外が発生します。
+
+.GitHub ActionsでGradle Workflow を利用した例外
+image::images/github-actions-error.png[aa]
+
+この例外の原因はJava CI のOSとして採用されているubuntu に graphviz というグラフ描画パッケージがインストールされていないことが原因です。
+しかしながらGitHub Actions で提供されているホスティング環境では 新たにパッケージをインストールするようなカスタマイズが出来ないためGradle Workflow は利用できません。
+
+したがって、Dockerfile を利用してビルド環境を自前で構成する必要があります。
+
+.GitHubヘルプ（Dockerコンテナのアクションを作成する)
+https://help.github.com/ja/actions/automating-your-workflow-with-github-actions/creating-a-docker-container-action
+
+[source, dockerfile]
+----
+FROM adoptopenjdk:11.0.5_10-jre-hotspot
+
+
+WORKDIR /asciidoc-environment
+
+RUN ["/bin/bash", "-c", "apt update ;\
+apt -y install graphviz ;\
+locale-gen ja_JP.UTF-8 ;\
+/usr/sbin/update-locale LANG=ja_JP.UTF-8 ;"]
+
+ENV LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8 LANGUAGE=""
+----
+
+[soucre,ruby]
+
 
 
 
