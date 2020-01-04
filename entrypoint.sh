@@ -15,6 +15,7 @@ git config --local user.email "${GITHUB_EMAIL}"
 cd $WORKDIR
 
 echo ::build-asciidoc
+./gradlew clean
 ./gradlew asciidoc
 result=$?
 
