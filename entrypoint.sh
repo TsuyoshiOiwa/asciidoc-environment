@@ -17,9 +17,10 @@ echo ::build-asciidoc
 ./gradlew asciidoc
 result=$?
 
-if ["$result" != "0"]; then
+if [$result != "0"]; then
     exit $result
 fi
+ls -al
 echo ::deploy-docs
 git add docs
 git commit -m "${COMMIT_MESSAGE}"
