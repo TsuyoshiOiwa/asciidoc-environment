@@ -22,8 +22,9 @@ if [$result != "0"]; then
 fi
 ls -al
 echo ::deploy-docs
+git switch master
 git add docs
 git commit -m "${COMMIT_MESSAGE}"
-git push origin
+git push origin HEAD
 result=$?
 exit $result
