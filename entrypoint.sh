@@ -9,8 +9,8 @@ git clone -b master https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_
 #git remote set-url origin https://${GITHUB_NAME}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
 #git checkout -b master
 
-git config --local user.name "${GITHUB_NAME}"
-git config --local user.email "${GITHUB_EMAIL}"
+git config --global user.name "${GITHUB_NAME}"
+git config --global user.email "${GITHUB_EMAIL}"
 
 cd $WORKDIR
 
