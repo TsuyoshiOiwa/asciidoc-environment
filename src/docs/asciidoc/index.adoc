@@ -1,3 +1,5 @@
+:highlightjsdir: highlight
+:source-highlighter: highlightjs
 = Asciidocビルド環境構築
 Tsuyoshi Oiwa <tsuyoshi.oiwa.code@gmail.com>
 v1.0, 2019/12/28
@@ -5,12 +7,26 @@ v1.0, 2019/12/28
 //article, book, manapge
 :doctype: article
 :stylesheet: sample.css
+:include: include
 
 //画像参照時のパスディレクトリ
+
 :imagesdir: images
-:toc:
-:toclevels: 2
-:toc-tile: 目次
+
+[source,java]
+----
+Class aiueo {
+    private int x;
+    Strin str = "aiueo";
+
+    public String toString(int x){
+        return String.valueOf(x);
+    }
+}
+----
+
+[source,ruby]
+puts "Hello, World"
 
 include::Ch01/chapter.adoc[]
 
