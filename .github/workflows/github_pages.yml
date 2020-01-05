@@ -20,10 +20,10 @@ jobs:
         java-version: 11.0.x
     - name: Build Document
       run: ./gradlew clean asciidoc
-    #- name: Configure Git Settings
-    #  run: |+
-    #    git config --local user.name 'Github Pages Action'
-    #    git config --local user.email 'tsuyoshi.oiwa.code@gmail.com'
+    - name: Configure Git Settings
+      run: |+
+        git config --global user.name 'Github Pages Action'
+        git config --global user.email 'tsuyoshi.oiwa.code@gmail.com'
     - name: Deploy Github Pages
       run: |+
         git add docs ;\
