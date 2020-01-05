@@ -19,7 +19,7 @@ jobs:
       with:
         java-version: 11.0.x
     - name: Build Document
-      run: ./gradlew clean asciidoc
+      run: ./gradlew clean deployGithubPages
     - name: Configure Git Settings
       run: |+
         git config --global user.name 'Github Pages Action'
