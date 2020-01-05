@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11.0.5_10-jre-hotspot
 
-WORKDIR /asciidoc-environment
+WORKDIR /github/workspace
 
 RUN ["/bin/bash", "-c", "apt update ;\
 apt -y install graphviz ;\
@@ -10,6 +10,4 @@ apt -y install git git-lfs "]
 
 ENV LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8 LANGUAGE=""
 
-COPY / /asciidoc-environment
-
-ENTRYPOINT ["/asciidoc-environment/entrypoint.sh"]
+ENTRYPOINT ["/github/workspace/entrypoint.sh"]

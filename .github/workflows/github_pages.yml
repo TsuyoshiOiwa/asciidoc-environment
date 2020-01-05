@@ -1,0 +1,22 @@
+name: github pages
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Build And Commit docs 
+      id: build
+      uses: TsuyoshiOiwa/asciidoc-environment@v0.11
+      with:
+        github-name: 'Gitub Pages Action'
+        github-email: 'tsuyoshi.oiwa.code@gmail.com'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'deploy Github Pages'
+    - name: Show Result
+      run: echo "result code was ${{ steps.build.outputs.result }}"
