@@ -27,6 +27,7 @@ Class aiueo {
 
 [source,ruby]
 puts "Hello, World"
+puts "aaa"
 
 include::Ch01/chapter.adoc[]
 
