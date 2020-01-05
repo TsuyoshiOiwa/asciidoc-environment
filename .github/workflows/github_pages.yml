@@ -28,5 +28,5 @@ jobs:
       run: |+
         git add docs ;\
         git commit -m "deploy Github Pages" ;\
-        git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}$" master
+        git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}" master
 
