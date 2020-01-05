@@ -20,13 +20,13 @@ jobs:
         java-version: 11.0.x
     - name: Build Document
       run: ./gradlew clean asciidoc
-    - name: Configure Git Settings
-      run: |+
-        git config --local user.name 'Github Pages Action'
-        git config --local user.email 'tsuyoshi.oiwa.code@gmail.com'
+    #- name: Configure Git Settings
+    #  run: |+
+    #    git config --local user.name 'Github Pages Action'
+    #    git config --local user.email 'tsuyoshi.oiwa.code@gmail.com'
     - name: Deploy Github Pages
       run: |+
         git add docs ;\
         git commit -m "deploy Github Pages" ;\
-        git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
+        git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master
 
