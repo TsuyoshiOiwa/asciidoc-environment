@@ -10,13 +10,21 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Build And Commit docs 
-      id: build
-      uses: TsuyoshiOiwa/asciidoc-environment@v0.11
+      run: git checkout -b master
+    - name: Set up Graphviz
+      run: sudo apt install -y graphviz
+    - name: Set up JDK 1.11
+      uses: actions/setup-java@v1
       with:
-        github-name: 'Gitub Pages Action'
-        github-email: 'tsuyoshi.oiwa.code@gmail.com'
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'deploy Github Pages'
-    - name: Show Result
-      run: echo "result code was ${{ steps.build.outputs.result }}"
+        java-version: 11.0.x
+      run: ./gradlew clean asciidoc
+    - name: Configure Git Settings
+      run: |+
+        git config --local user.name 'Github Pages Action'
+        git config --local user.email 'tsuyoshi.oiwa.code@gmail.com'
+    - name: Deploy Github Pages
+      run: |+
+        git add docs ;\
+        git commit -m "deploy Github Pages" ;\
+        git push origin
+
