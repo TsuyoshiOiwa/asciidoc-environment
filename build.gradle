@@ -52,13 +52,15 @@ asciidoctor {
     }
 }
 
-task deployGithubPages(type: Copy, dependsOn: asciidoctor) {
-    delete {
-        delete 'docs'
-    }
-    copy {
-        from htmlBuildPath
-        into 'docs'
+task deployGithubPages(dependsOn: asciidoctor) {
+    doLast {
+        delete {
+            delete 'docs'
+        }
+        copy {
+            from htmlBuildPath
+            into 'docs'
+        }
     }
 }
 
