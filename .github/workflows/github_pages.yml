@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11.0.x
+    - name: Build Document
       run: ./gradlew clean asciidoc
     - name: Configure Git Settings
       run: |+
