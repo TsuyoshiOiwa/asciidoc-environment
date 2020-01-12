@@ -15,15 +15,22 @@ repositories {
     }
 }
 
+version="1.0"
 asciidoctorj {
     version = '1.6.0'
     attributes(
-        'source-highlighter': 'highlightjs',
+        'source-highlighter': 'coderay',
         'toc': 'left',
         'toc-title': '目次',
+        'doctype': 'article',
+        'author': 'Tsuyoshi Oiwa',
+        'email': 'tsuyoshi.oiwa.code@gmail.com',
+        'revnumber': "${project.version}",
+        'revdate': LocalDate.now(),
         'toclevels': 3,
         'idprefix': '',
         'idseparator': '-',
+        'build': project.projectDir.canonicalPath,
     )
 
     modules {

@@ -1,6 +1,5 @@
 FROM adoptopenjdk:11.0.5_10-jre-hotspot
 
-
 WORKDIR /asciidoc-environment
 
 RUN ["/bin/bash", "-c", "apt update ;\

@@ -1,0 +1,72 @@
+ifdef::build[]
+:imagesdir: Ch03
+endif::build[]
+
+== 開発環境構築
+
+=== 本レポジトリの開発環境
+このレポジトリの開発環境は以下の通りです。
+.開発技術、インフラ
+[cols=">,<" options="autowidth"]
+|====
+h|Asciidoc実装|AsciidoctorJ
+h|開発環境構築|Docker
+h|ビルドツール|Gradle
+h|Gitレポジトリ|GitHub
+h|CIツール|GitHub Actions
+h|Webデプロイ|GitHub Pages
+|====
+
+=== Dockerによる開発環境構築
+.Dockerfile
+[source, dockerfile]
+----
+include::{build}/Dockerfile[]
+----
+.変更点
+- asciidoc-diagramを利用するためにgraphvizをインストールする
+- OSの設定を日本語にする
+
+.開発環境ビルドコマンド
+[source, bash, linenums]
+----
+docker image build asciidoc-jdk:latest /path/to/asciidoc-environment
+docker container run -it --name adoc -v /path/to/asciidoc-environment/:/asciidoc-environment asciidoc-jdk /bin/bash
+----
+
+=== build.gradle
+.設定
+[options="autowidth"]
+|====
+h|ソースフォルダ|src/docs/asciidoc
+h|adocエントリポイント|src/docs/asciidoc/index.adoc
+h|html出力フォルダ|build/docs/asciidoc/index.html
+h|GitHub Pages用フォルダ|docs
+h|画像フォルダ|images または Ch**/images
+h|ソースハイライタ|coderay
+|====
+
+Tasks::
+  asciidoc:::
+    ソースをビルドしbuild/docs/asciidoc配下にHtmlドキュメントを出力する
+  deployGithubPages:::
+    . asciidocタスクを実行する
+    . docsフォルダを削除する
+    . build/docs/asciidoc/配下のファイルをdocsフォルダにコピーする
+  clean:::
+    buildフォルダを削除する
+
+
+.build.gradle
+[source, groovy, linenums]
+----
+include::{build}/build.gradle[]
+----
+
+=== Github Actions
+.workflow.yaml
+[source, yaml, linenums]
+----
+include::{build}/.github/workflows/github_pages.yml[]
+----
+

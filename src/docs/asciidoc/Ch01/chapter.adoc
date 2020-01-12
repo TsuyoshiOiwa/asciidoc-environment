@@ -1,6 +1,6 @@
-ifdef::include[]
+ifdef::build[]
 :imagesdir: Ch01
-endif::include[]
+endif::build[]
 
 == 概要
 === はじめに
@@ -13,43 +13,4 @@ endif::include[]
 
 - Promise Book
  https://github.com/azu/promises-book/[azu/promises-book]
-
-=== 本書の構成
-Asciidoc
-
-=== 画像テスト
-image:images/images.png[]
-
-=== diagramテスト
-[plantuml, diagram-classes, png]
-....
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
-
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
-....
-
-[ditaa]
-....
-                   +-------------+
-                   | Asciidoctor |-------+
-                   |   diagram   |       |
-                   +-------------+       | PNG out
-                       ^                 |
-                       | ditaa in        |
-                       |                 v
- +--------+   +--------+----+    /---------------\
- |        | --+ Asciidoctor +--> |               |
- |  Text  |   +-------------+    |   Beautiful   |
- |Document|   |   !magic!   |    |    Output     |
- |     {d}|   |             |    |               |
- +---+----+   +-------------+    \---------------/
-     :                                   ^
-     |          Lots of work             |
-     +-----------------------------------+
-....
 
