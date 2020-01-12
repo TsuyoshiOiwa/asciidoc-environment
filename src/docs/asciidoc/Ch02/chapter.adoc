@@ -1,15 +1,13 @@
-:source-highlighter: highlightjs
-ifdef::include[]
+ifdef::build[]
 :imagesdir: Ch02
-else::include[]
-endif::include[]
+endif::build[]
 
 == 技術、インフラの選定
 
-=== Asciidoc実装
+=== Asciidoc
 ==== Asciidoc実装一覧
 [options="header", width="80%"]
-.Asciidoc実装一覧
+.Asciidoc一覧
 |====
 |実装|言語|ビルドスクリプト
 |Asciidoc(CRuby)|Ruby|rake
@@ -27,43 +25,33 @@ Asciidocは様々な環境で使用できますが、その実装の種類は大
 ```Gem
 gem install asciidoc-diagram
 ```
-とRubyの流儀にしたがって適用します。
+とRubyの流儀にしたが適用します。
 表ではAsciidoc(CRuby), Asciidoc(JRuby), Asciidoc(TruffleRuby)が対象になります。
 
-===== Asciidoc(CRuby)の別実装
-2つ目の実装種類はRuby以外の言語ベースにAsciidocのリファレンス実装をしたものです。
-表ではAsciidoctorJ, Asciidocter.jsが対象になります。
-言語ベースがRubyではないため、ビルドツールも各言語に合わせて変える必要があります。
-エクステンションを適用する場合は例えばJava, Gradleの場合は
-```Gradle
-compile group: 'org.asciidoctor', name: 'asciidoctorj-diagram', version: '2.0.0'
-```
-と記述します。
-javascriptのビルドツールについては私は詳しくないのでここではあまり詳しく記述しません（できません）。
+===== AsciidocのRuby以外の開発環境
+Asciidocの開発環境はRuby以外の言語でも構築できます。
+表ではJava言語実装のAsciidoctorJ, JavaScript実装のAsciidocter.jsが該当します。
+あえて別言語でAsciidocを開発するメリットとしては私が思うに以下の3点が考えられます。
+
+- その言語固有のビルドツールが使える。
+- 新しいエクステンションを使い慣れた言語で開発できる。
+- AsciidoctorJ、Asciidoctor.jsでのみ利用可能なエクステンションがある。
+
+[NOTE]
+AsciiDocエクステンション一覧 +
+https://asciidoctor.org/docs/extensions/[List of Asciidoctor Extensions]
 
 ==== Asciidoc実装選定時の考慮点
 正直なところ細かい実装の違いについて語る知識、経験が私にはないので特に語れることはありません。
 ただ、Asciidoc, AsciidoctorJ, Asciidoctor.jsでは利用できるエクステンションに差異があるため、必要な機能があるかよく確認したほうがいいと思います。
-例えばAsciidocでPDF出力をしようと考える場合はAsciidoctorJ一択になったりします。
-
+上記に問題がなければ、基本的に自分が使い慣れた開発環境を利用するのが無難だと思います。
 //TODO ==== 各実装ごとのエクステンション一覧
 
-==== 本ドキュメントの実装
-AsciidoctorJを利用します。単純に私が使い慣れているからという理由です。
-
-=== ビルドスクリプト
-
 === Gitレポジトリ
-- GitHub
-- GitLab
-- Azure repo
-- AWS c
+ドキュメントを公開する用途ならばGitHubを利用するのが一番簡単だと思います。
+作成したドキュメントをGitHub Pagesで公開でき、Asciidocのビルド、デプロイもGitHub Actionsで自動化できます。
 
-=== コンテナ
-==== docker image
-==== 環境構築
-apt updateapt
-graphbiz
+ドキュメントを非公開にして、一部の人のみで共有する場合は、AWS CodeCommit + AWS S3、Azure repos + Azure Blob などの構成にするのがよさそうだと感じました。クラウドサービスのユーザーアカウントとアクセス権限を紐づけられるので管理がしやすそうです。
 
 === CIツール
 ==== GitHub Actions & GitHub Pages
@@ -77,32 +65,9 @@ asciidoc-diagram を利用したドキュメントをビルドしようとした
 image::images/github-actions-error.png[aa]
 
 この例外の原因はJava CI のOSとして採用されているubuntu に graphviz というグラフ描画パッケージがインストールされていないことが原因です。
-しかしながらGitHub Actions で提供されているホスティング環境では 新たにパッケージをインストールするようなカスタマイズが出来ないためGradle Workflow は利用できません。
+しかしながらGitHub Actions で提供されているホスティング環境でgraphvizをインストールするする必要があります。
 
-したがって、Dockerfile を利用してビルド環境を自前で構成する必要があります。
-
+[NOTE]
+最初は開発環境用に作成したDockerfileを利用してActionを作成しようとしましたが、出力したHtmlをGitHubにコミットする部分がどうしてもうまくいかないため断念しました。
 .GitHubヘルプ（Dockerコンテナのアクションを作成する)
 https://help.github.com/ja/actions/automating-your-workflow-with-github-actions/creating-a-docker-container-action
-
-[source, dockerfile]
-----
-FROM adoptopenjdk:11.0.5_10-jre-hotspot
-
-
-WORKDIR /asciidoc-environment
-
-RUN ["/bin/bash", "-c", "apt update ;\
-apt -y install graphviz ;\
-locale-gen ja_JP.UTF-8 ;\
-/usr/sbin/update-locale LANG=ja_JP.UTF-8 ;"]
-
-ENV LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8 LANGUAGE=""
-----
-
-[soucre,ruby]
-
-
-
-
-
-
